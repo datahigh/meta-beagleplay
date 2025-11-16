@@ -1,3 +1,4 @@
 require recipes-core/images/core-image-minimal.bb
 
-IMAGE_INSTALL:append = " helloworld"
+ENABLE_RUST = "1"
+IMAGE_INSTALL:append = " helloworld read-urandom-rust gpio-int-rust"
