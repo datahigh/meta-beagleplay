@@ -16,7 +16,7 @@ SRC_URI = "git://git@github.com/datahigh/i2c-eeprom-read-rust.git;protocol=ssh;b
 
 # Modify these as desired
 PV = "1.0+git"
-SRCREV = "30610bc7d9ffc4e6061a46463cc387cf3a81542a"
+SRCREV = "0316c1ddcffbcbe68406d4163829a7ca5bcdcb17"
 
 S = "${WORKDIR}/git"
 
