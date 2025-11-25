@@ -12,10 +12,7 @@
 LICENSE = "CLOSED"
 LIC_FILES_CHKSUM = ""
 
-SRC_URI = " \
-    git://git@github.com/datahigh/simpleserver-rust.git;protocol=ssh;branch=master \
-    file://simpleserver.service \
-"
+SRC_URI = "git://git@github.com/datahigh/simpleserver-rust.git;protocol=ssh;branch=master"
 
 # Modify these as desired
 PV = "1.0+git"
@@ -25,12 +22,20 @@ S = "${WORKDIR}/git"
 
 # NOTE: no Makefile found, unable to determine what needs to be done
 
+# Needed to build the Rust program
 inherit cargo cargo-update-recipe-crates
 require ${BPN}-crates.inc
 
+# To enable the daemon on boot
+inherit systemd
+SRC_URI:append = " file://simpleserver.service"
+FILES:${PN} += "${systemd_system_unitdir}/simpleserver.service"
+SYSTEMD_SERVICE:${PN} = "simpleserver.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+
 do_install:append() {
-    install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
-    install -m 0600 ${WORKDIR}/simpleserver.service ${D}${sysconfdir}/systemd/system/simpleserver.service
-    ln -sf /etc/systemd/system/simpleserver.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/simpleserver.service
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0600 ${WORKDIR}/simpleserver.service ${D}${systemd_system_unitdir}/simpleserver.service
+#    ln -sf /etc/systemd/system/simpleserver.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/simpleserver.service
 }
 
