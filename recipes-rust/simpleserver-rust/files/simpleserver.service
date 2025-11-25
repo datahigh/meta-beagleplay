@@ -1,0 +1,10 @@
+[Unit] 
+Description=Simple server in Rust 
+ 
+[Service] 
+Type=forking 
+ExecStart=/usr/bin/simpleserver-rust 
+ 
+[Install] 
+WantedBy=multi-user.target
+
