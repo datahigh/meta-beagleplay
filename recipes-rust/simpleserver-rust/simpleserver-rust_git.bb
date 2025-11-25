@@ -36,6 +36,5 @@ SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 do_install:append() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0600 ${WORKDIR}/simpleserver.service ${D}${systemd_system_unitdir}/simpleserver.service
-#    ln -sf /etc/systemd/system/simpleserver.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/simpleserver.service
 }
 
